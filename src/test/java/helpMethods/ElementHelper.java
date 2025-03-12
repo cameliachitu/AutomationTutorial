@@ -3,6 +3,7 @@ package helpMethods;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 
@@ -16,7 +17,7 @@ public class ElementHelper {
 
     //metode:
     public void waitForElementVisible(By locator){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
@@ -24,6 +25,8 @@ public class ElementHelper {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(locator));
     }
+
+
 
     public void clickLocator(By locator){
         waitForElementVisible(locator);
@@ -37,7 +40,6 @@ public class ElementHelper {
     }
 
     public void clickJSLocator(WebElement locator){
-        waitForElementVisible(locator);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", locator);
     }
@@ -51,6 +53,24 @@ public class ElementHelper {
         waitForElementVisible(locator);
         driver.findElement(locator).sendKeys(value);
         driver.findElement(locator).sendKeys(key);
+
+    }
+
+    public void validateTextLocator(By locator, String expected){
+        waitForElementVisible(locator);
+        String actualMessage = driver.findElement(locator).getText();
+        Assert.assertEquals(actualMessage, expected);
+    }
+
+    public void validateTextContainsElement(WebElement element, String text){
+        waitForElementVisible(element);
+        Assert.assertTrue(element.getText().contains(text));
+    }
+
+    public void clearFilledLocator(By locator, String text){
+        waitForElementVisible(locator);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
 
     }
 }

@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PracticeForm extends SharedData {
+public class PracticeFormTest extends SharedData {
 
 
     @Test
@@ -86,7 +86,7 @@ public class PracticeForm extends SharedData {
         for (int index = 0; index < hobbies.size(); index++) {
             String currentText = hobbiesOptionsList.get(index).getText();
             if (hobbies.contains(currentText)) {
-                executor.executeScript("arguments[0].click();", hobbiesOptionsList.get(index));
+               elementHelper.clickJSLocator(hobbiesOptionsList.get(index));
             }
 
         }
@@ -115,52 +115,54 @@ public class PracticeForm extends SharedData {
         String cityInputValue = "Delhi";
 //        cityInputElement.sendKeys(cityInputValue);
 //        cityInputElement.sendKeys(Keys.ENTER);
-        elementHelper.fillPressLocator(cityElement, cityInputValue, Keys.ENTER);
+        elementHelper.fillPressLocator(cityInputElement, cityInputValue, Keys.ENTER);
 
         By submitElement = By.id("submit");
         elementHelper.clickJSLocator(submitElement);
 
         //pana aici am lucrat 26.02
 
-        WebElement thankyouElement = driver.findElement(By.id("example-modal-sizes-title-lg"));
+        By thankyouElement = By.id("example-modal-sizes-title-lg");
         String expectedMessage = "Thanks for submitting the form";
-        String actualMessage = thankyouElement.getText();
-        Assert.assertEquals(actualMessage, expectedMessage);
-        System.out.println("Testul a fost validat");
+        elementHelper.validateTextLocator(thankyouElement, expectedMessage);
+//        String actualMessage = thankyouElement.getText();
+//        Assert.assertEquals(actualMessage, expectedMessage);
+//        System.out.println("Testul a fost validat");
 
-        List<WebElement> tablesRowsList = driver.findElements(By.xpath("//tbody/tr"));
-        Assert.assertTrue(tablesRowsList.get(0).getText().contains("Student Name"));
-        Assert.assertTrue(tablesRowsList.get(0).getText().contains(firstNameValue));
-        Assert.assertTrue(tablesRowsList.get(0).getText().contains(lastNameValue));
+        By tablesRowsListElement = By.xpath("//tbody/tr");
+        List<WebElement> tablesRowsList = driver.findElements(tablesRowsListElement);
+        elementHelper.validateTextContainsElement(tablesRowsList.get(0), "Student Name");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(0), firstNameValue);
+        elementHelper.validateTextContainsElement(tablesRowsList.get(0),lastNameValue);
 
-        Assert.assertTrue(tablesRowsList.get(1).getText().contains("Student Email"));
-        Assert.assertTrue(tablesRowsList.get(1).getText().contains(emailValue));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(1),"Student Email");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(1), emailValue);
 
-        Assert.assertTrue(tablesRowsList.get(2).getText().contains("Gender"));
-        Assert.assertTrue(tablesRowsList.get(2).getText().contains(genderValue));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(2),"Gender");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(2), genderValue);
 
-        Assert.assertTrue(tablesRowsList.get(3).getText().contains("Mobile"));
-        Assert.assertTrue(tablesRowsList.get(3).getText().contains(mobilePhoneValue));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(3),"Mobile");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(3), mobilePhoneValue);
 
-        Assert.assertTrue(tablesRowsList.get(5).getText().contains("Subjects"));
-        Assert.assertTrue(tablesRowsList.get(5).getText().contains("Maths"));
-        Assert.assertTrue(tablesRowsList.get(5).getText().contains("Arts"));
-        Assert.assertTrue(tablesRowsList.get(5).getText().contains("Biology"));
-        Assert.assertTrue(tablesRowsList.get(5).getText().contains("Chemistry"));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(5),"Subjects");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(5),"Maths");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(5),"Arts");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(5),"Biology");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(5),"Chemistry");
 
-        Assert.assertTrue(tablesRowsList.get(6).getText().contains("Hobbies"));
-        Assert.assertTrue(tablesRowsList.get(6).getText().contains("Sports"));
-        Assert.assertTrue(tablesRowsList.get(6).getText().contains("Reading"));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(6),"Hobbies");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(6),"Sports");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(6),"Reading");
 
-        Assert.assertTrue(tablesRowsList.get(7).getText().contains("Picture"));
-        Assert.assertTrue(tablesRowsList.get(7).getText().contains("2022-12-14 (1).png"));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(7),"Picture");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(7),"2022-12-14 (1).png");
 
-        Assert.assertTrue(tablesRowsList.get(8).getText().contains("Address"));
-        Assert.assertTrue(tablesRowsList.get(8).getText().contains(addressValue));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(8),"Address");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(8), addressValue);
 
-        Assert.assertTrue(tablesRowsList.get(9).getText().contains("State and City"));
-        Assert.assertTrue(tablesRowsList.get(9).getText().contains(stateInputValue));
-        Assert.assertTrue(tablesRowsList.get(9).getText().contains(cityInputValue));
+        elementHelper.validateTextContainsElement(tablesRowsList.get(9),"State and City");
+        elementHelper.validateTextContainsElement(tablesRowsList.get(9), stateInputValue);
+        elementHelper.validateTextContainsElement(tablesRowsList.get(9), cityInputValue);
     }
 
 }

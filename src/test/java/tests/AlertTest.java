@@ -55,7 +55,7 @@ public class AlertTest extends SharedData {
 //        alertOkCancel.dismiss();
         alertHelper.cancelAlert();
 
-        By promptButtonElement = By.id("promptButton");
+        By promptButtonElement = By.id("promtButton");
         elementHelper.clickJSLocator(promptButtonElement);
 
         //completarea campului de alerta
